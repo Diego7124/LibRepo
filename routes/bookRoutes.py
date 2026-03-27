@@ -40,22 +40,7 @@ def create_book():
         return jsonify({'error': str(error)}), 400
 
 
-@book_bp.route('/books', methods=['GET'])
-def get_books():
-    books = Book.query.all()
-    result = []
-    for book in books:
-        result.append({
-            'BookID': book.BookID,
-            'Title': book.Title,
-            'AuthorID': book.AuthorID,
-            'PublicationYear': book.PublicationYear,
-            'Genre': book.Genre,
-            'AvailableCopies': book.AvailableCopies,
-            'TotalCopies': book.TotalCopies
-        })
-    # Siempre devuelve un array, aunque esté vacío
-    return jsonify(result), 200
+
 
     author = db.session.get(Author, author_id)
     if not author:
