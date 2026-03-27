@@ -27,21 +27,16 @@ def create_member():
 def get_members():
     members = Member.query.all()
     result = []
-
-    if not members:
-        return jsonify({'Message':'No hay ningun Miembro para Mostrar'})
-
     for member in members:
         result.append({
-        'MemberID': member.MemberID,
-        'StudentID': member.StudentID,
-        'FirstName': member.FirstName,
-        'LastName': member.LastName,  
-        'Email': member.Email,
-        "PhoneNumber": member.PhoneNumber
+            'MemberID': member.MemberID,
+            'StudentID': member.StudentID,
+            'FirstName': member.FirstName,
+            'LastName': member.LastName,
+            'Email': member.Email,
+            'PhoneNumber': member.PhoneNumber
         })
-
-    return jsonify(result),200
+    return jsonify(result), 200
 
 @member_bp.route('/members/<int:id>', methods = ['GET'])
 def get_member(id):
