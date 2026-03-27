@@ -24,6 +24,7 @@ def parse_publication_year(value):
             return int(value[:4])
     return parse_int(value, 'PublicationYear')
 
+
 #crud routes
 
 #bookRoutes
@@ -37,6 +38,24 @@ def create_book():
         total_copies = parse_int(data.get('TotalCopies', 0), 'TotalCopies')
     except ValueError as error:
         return jsonify({'error': str(error)}), 400
+
+
+@book_bp.route('/books', methods=['GET'])
+def get_books():
+    books = Book.query.all()
+    result = []
+    for book in books:
+        result.append({
+            'BookID': book.BookID,
+            'Title': book.Title,
+            'AuthorID': book.AuthorID,
+            'PublicationYear': book.PublicationYear,
+            'Genre': book.Genre,
+            'AvailableCopies': book.AvailableCopies,
+            'TotalCopies': book.TotalCopies
+        })
+    # Siempre devuelve un array, aunque esté vacío
+    return jsonify(result), 200
 
     author = db.session.get(Author, author_id)
     if not author:

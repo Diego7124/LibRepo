@@ -23,7 +23,6 @@ def create_author():
 def get_authors():
     authors = Author.query.all()
     result = []
-
     for author in authors:
         result.append({
             'AuthorID': author.AuthorID,
@@ -32,10 +31,7 @@ def get_authors():
             'BirthDate': str(author.BirthDate) if author.BirthDate else None,
             'Nationality': author.Nationality
         })
-
-    if not authors:
-        return jsonify({'message': 'No se encontraron authors'}), 404
-
+    # Siempre devuelve un array, aunque esté vacío
     return jsonify(result), 200
 
 
