@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+print('>>> [DEBUG] bookRoutes.py importado')
 from config.db import db
 from models.bookModel import Book
 from models.authorModel import Author
@@ -30,6 +31,7 @@ def parse_publication_year(value):
 #bookRoutes
 @book_bp.route('/books', methods = ['POST'])
 def create_book():
+    print('>>> [DEBUG] POST /books llamado')
     data = request.json
     try:
         author_id = parse_int(data.get('AuthorID'), 'AuthorID')
@@ -60,6 +62,7 @@ def create_book():
 
 @book_bp.route('/books', methods=['GET'])
 def get_books():
+    print('>>> [DEBUG] GET /books llamado')
     books = Book.query.all()
     result = []
     for book in books:
@@ -80,6 +83,7 @@ def get_books():
 
 @book_bp.route('/books/<int:id>', methods=['GET'])
 def get_book(id):
+    print(f'>>> [DEBUG] GET /books/{{id}} llamado, id={{id}}')
     book = db.session.get(Book, id)
     if not book:
         return jsonify({'message': 'Libro no encontrado'}), 404
@@ -96,6 +100,7 @@ def get_book(id):
 
 @book_bp.route('/books/<int:id>', methods=['PUT'])
 def update_book(id):
+    print(f'>>> [DEBUG] PUT /books/{{id}} llamado, id={{id}}')
     book = db.session.get(Book,id)
     if not book:
         return jsonify({'message': 'Libro no encontrado'}), 404
@@ -138,6 +143,7 @@ def update_book(id):
 
 @book_bp.route('/books/<int:id>', methods=['DELETE'])
 def delete_book(id):
+    print(f'>>> [DEBUG] DELETE /books/{{id}} llamado, id={{id}}')
     book = db.session.get(Book, id)
     if not book:
         return jsonify({'message': 'No hay ningun libro con ese ID'}), 404
