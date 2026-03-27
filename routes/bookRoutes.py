@@ -74,12 +74,8 @@ def get_books():
             'PublicationYear': book.PublicationYear,
             'AvailableCopies': book.AvailableCopies,
             'TotalCopies': book.TotalCopies
-    })
-    
-    if not books:
-        return jsonify({"message": 'No se pudieron obtener los libros'}),404
-        
-    return jsonify(result),200
+        })
+    return jsonify(result), 200  # Siempre array, aunque esté vacío
 
 @book_bp.route('/books/<int:id>', methods=['GET'])
 def get_book(id):
